@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Info</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mt-5 page-header">Movie Info App</h1>
+        <div class="row">
+        <div class="col-sm-4">
+        <form id="movieform" autocomplete="off">
+            <div class="form-group">
+                <label for="movie">Movie name</label>
+                <input class="form-control" type="text" id="movie" placeholder="movie here">
+            </div>
+        <div class="form-group">
+            <button class="btn btn-danger btn-block">Search</button>
+        </div>
+        </form></div>
+    
+    <div class="col-sm-8 jumbotron jumbotron-fluid text-center" id="result" style="margin-bottom:100"></div></div></div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        var apikey="b8646e91"
+        $("#movieform").submit(function(event){
+            event.preventDefault()
+            `<div class="spinner-border"></div>`
+            var name=$("#movie").val();
+            var url="http://www.omdbapi.com/?apikey="+apikey
+            $.ajax({
+                method:'GET',
+                url:url+"&t="+name,
+                success:function(data){
+                    console.log(data)
+                    result=`
+                    <img style="float:left" width=250 src="${data.Poster}" class="img-fluid img-thumbnail"/></div>
+                    <h1>${data.Director}</h1>
+                    `
+                    $("#result").html(result);
+                    $("#movie").reset();
+                }
+            })
+        }
+
+        )
+    })
+</script>
+</html>
